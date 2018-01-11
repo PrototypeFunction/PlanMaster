@@ -19,7 +19,7 @@
 
 ## 立即体验
 
-![planmaster-mina-code](https://planmaster.prototype.im/minicode.jpg)
+![套餐助手小程序码](https://planmaster.prototype.im/minicode.jpg?fix)
 
 ## 截图
 
