@@ -1,0 +1,11 @@
+.block {
+  margin: 20px;
+}
+.title {
+    margin: 15px;
+    text-align: center;
+    font-size: 24px;
+}
+button {
+  margin: 15px 0;
+}

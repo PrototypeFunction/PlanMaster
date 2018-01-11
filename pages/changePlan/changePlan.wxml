@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="block">
+      <view class="title">如何将套餐修改为{{plan.cardName}}?</view>
+      <view class="content">
+        要将套餐改为「{{plan.cardName}}」您可直接致电{{serviceNumbers[plan.operator]}}，转人工服务，请求客服帮您办理。需要注意的是老用户转套餐将不能享受新用户优惠，但是套餐中包含的免流等特权可以正常享受。
+        若客服表示无法办理或需要去营业厅办理，可用请求客服记一个需要回访的投诉，通常不久就会接到回访电话，这时一般就可以成功办理了。
+      </view>
+      <button class="btn" type="primary" bindtap="goChangePlanNow">现在就去办理</button>
+  </view>
+  <view class="block">
+    <view class="sponsor-block">
+      <sponsor show="{{showAd}}" ad="{{ad}}"></sponsor>
+    </view>
+  </view>
+</view>

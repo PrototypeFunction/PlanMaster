@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "修改套餐",
+  "usingComponents": {
+    "sponsor": "/components/sponsor/sponsor"
+  }
+}

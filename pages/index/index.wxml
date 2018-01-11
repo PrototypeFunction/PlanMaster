@@ -1,0 +1,147 @@
+<wxs module="m">
+    var splitFee = function (fee) {
+      if (typeof fee === 'string') {
+        fee = fee.split('.')
+      } else {
+        fee = ['00', '00']
+      }
+      return {
+        feeBig: fee[0],
+        feeSmall: fee[1]
+      }
+    }
+    module.exports.splitFee = splitFee;
+  </wxs>
+<view class="container">
+  <view class="block">
+    <view class="block-title">
+      使用量设置
+      <view class="block-subtitle">您一般每个月使用多少通话和流量？</view>
+    </view>
+    <view class="block-content">
+      <view class="block-item column">
+        <view class="item-row slider-box">
+          <view class="item-title"><image class="item-title-icon" src="/static/images/phone.svg" />每月平均通话时间</view>
+          <view class="input-unit">分钟</view>
+        </view>
+        <view class="item-row">
+          <slider class="slider" bindchanging="callSliderChaning" bindchange="callSliderChange" value="{{callSlider}}" max="11" step="1"/>
+          <view class="input-value">
+            <input type="digit" value="{{callSlider === 11 ? call + ' +': call}}" bindblur="callInputChange"/>
+          </view>
+        </view>
+      </view>
+      <view class="block-item column">
+        <view class="item-row slider-box">
+          <view class="item-title"><image class="item-title-icon" src="/static/images/traffic.svg" />每月平均流量使用</view>
+          <view class="input-unit">GB</view>
+        </view>
+        <view class="item-row">
+          <slider class="slider" bindchanging="trafficSliderChanging" bindchange="trafficSliderChange" value="{{trafficSlider}}" max="15" step="1"/>
+          <view class="input-value">
+            <input type="digit" value="{{trafficSlider === 15 ? traffic + ' +': traffic}}" bindblur="trafficInputChange"/>
+          </view>
+        </view>
+      </view>
+      <view class="block-item column">
+        <view class="item-row slider-box">
+          <view class="item-title"><image class="item-title-icon" src="/static/images/briefcase.svg" />每月在省外的时间</view>
+          <view class="input-unit">天</view>
+        </view>
+        <view class="item-row">
+          <slider class="slider" bindchanging="outProvinceDaySliderChanging" bindchange="outProvinceDaySliderChange" max="30" step="1"/>
+          <view class="input-value">
+            <input type="digit" value="{{outProvinceDay}}" bindblur="outProvinceDayInputChange"/>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="block plan">
+    <view class="block-title">
+      推荐套餐
+      <view class="block-subtitle">以下是我根据您选择的使用量为您推荐的套餐</view>
+    </view>
+    <view class="operator">
+      <view class="operator-item" bindtap="onOperatorChange" wx:for="{{operators}}" wx:key="{{item.name}}" data-index="{{index}}" data-checked="{{item.checked}}">
+        <view class="operator-name">
+          <image class="operator-icon operator-icon-inline" src="{{item.img}}"></image><text class="operator-text">{{item.name}}</text>
+        </view>
+        <image wx:if="{{item.checked}}" class="operator-icon operator-icon-big" src="/static/images/circle-checked.svg"></image>
+        <image wx:else class="operator-icon operator-icon-big" src="/static/images/circle.svg"></image>
+      </view>
+    </view>
+    <view class="block-item" wx:for="{{recommendedGreatPlans}}" data-index="{{index}}" data-type="great" bindtap="goDetail">
+      <view class="item-column">
+        <view class="plan-name">
+          <image wx:if="{{index === 0}}" class="plan-rank-icon" src="/static/images/gold-medal.svg"></image>
+          <text>{{item.cardName}}</text>
+        </view>
+        <view class="plan-partner-name">{{item.partner}}</view>
+      </view>
+      <view class="plan-fee">
+        <view wx:if="{{item.price.condition}}" class="condition">{{item.price.condition}}</view>
+        <view class="normal-fee">约<text class="fee-value{{index === 0 ? ' recommanded' : ''}}">
+          <text class="fee-value-big">{{m.splitFee(item.price.costEstimate.totalFee).feeBig}}</text>.{{m.splitFee(item.price.costEstimate.totalFee).feeSmall}}</text>元／月
+        </view>
+        <view wx:if="{{item.description && item.description !== '无'}}" class="discounted-fee">{{item.description}}</view>
+      </view>
+    </view>
+    <sponsor show="{{showAd}}" ad="{{ad}}"></sponsor>
+    <view class="block-item" wx:for="{{recommendedGoodPlans}}" data-index="{{index}}" data-type="good" bindtap="goDetail">
+      <view class="item-column">
+        <view class="plan-name">
+          <image wx:if="{{index === 0}}" class="plan-rank-icon" src="/static/images/silver-medal.svg"></image>
+          <image wx:if="{{index === 1}}" class="plan-rank-icon" src="/static/images/copper-medal.svg"></image>
+          <text>{{item.cardName}}</text>
+        </view>
+        <view class="plan-partner-name">{{item.partner}}</view>
+      </view>
+      <view class="plan-fee">
+        <view wx:if="{{item.price.condition}}" class="condition">{{item.price.condition}}</view>
+        <view class="normal-fee">约<text class="fee-value{{index === 0 ? ' recommanded' : ''}}">
+          <text class="fee-value-big">{{m.splitFee(item.price.costEstimate.totalFee).feeBig}}</text>.{{m.splitFee(item.price.costEstimate.totalFee).feeSmall}}</text>元／月
+        </view>
+        <view wx:if="{{item.description && item.description !== '无'}}" class="discounted-fee">{{item.description}}</view>
+      </view>
+    </view>
+    <view class="block-item share">
+      <view class="item-column">
+        <view class="item-row">
+          <view class="sponsor-title">将套餐助手分享给家人和朋友</view>
+        </view>
+        <view class="item-row">
+          <view class="sponsor-subtitle">好东西当然要分享给大家！</view>
+        </view>
+        <view class="item-row">
+          <view class="btn-group">
+            <button class="btn share-btn" open-type="share" type="primary" bindtap="goApplyNew">转发分享</button>
+            <button class="btn share-btn" type="default" bindtap="getShareImage">👯 朋友圈分享</button>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="block-item" wx:for="{{recommendedOtherPlans}}" wx:key="{{item.cardName}}" data-index="{{index}}" data-type="other" bindtap="goDetail">
+      <view class="item-column">
+        <view class="plan-name">
+          <text>{{item.cardName}}</text>
+        </view>
+        <view class="plan-partner-name">{{item.partner}}</view>
+      </view>
+      <view class="plan-fee">
+        <view wx:if="{{item.price.condition}}" class="condition">{{item.price.condition}}</view>
+        <view class="normal-fee">约<text class="fee-value{{index === 0 ? ' recommanded' : ''}}">
+          <text class="fee-value-big">{{m.splitFee(item.price.costEstimate.totalFee).feeBig}}</text>.{{m.splitFee(item.price.costEstimate.totalFee).feeSmall}}</text>元／月
+        </view>
+        <view wx:if="{{item.description && item.description !== '无'}}" class="discounted-fee">{{item.description}}</view>
+      </view>
+    </view>
+    <sponsor show="{{showAd}}" ad="{{ad}}"></sponsor>
+  </view>
+  <view class="block footer">
+    <view class="footer-image" bindtap="goPrototype">
+      <image mode="aspectFit" src="https://prototype.im/badge@2x.png"></image>
+    </view>
+    <view class="footer-text" bindtap="goFeedback">反馈问题</view>
+  </view>
+</view>

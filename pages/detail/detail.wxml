@@ -1,0 +1,169 @@
+<wxs module="m">
+  var splitFee = function (fee) {
+    if (typeof fee === 'string') {
+      fee = fee.split('.')
+    } else {
+      fee = ['00', '00']
+    }
+    return {
+      feeBig: fee[0],
+      feeSmall: fee[1]
+    }
+  }
+  module.exports.splitFee = splitFee
+</wxs>
+<view class="container">
+  <view class="block">
+    <view class="block-row">
+      <view class="block-title">
+        <text>{{plan.cardName}}</text>
+        <text class="block-subtitle">{{plan.price.condition}}</text>
+      </view>
+    </view>
+    <view class="block-row">
+      <view class="block-column">
+        {{plan.partner}} × <image wx:if="{{plan.operator === '中国联通'}}" class="row-icon row-inline-icon" src="/static/images/unicom.svg"></image><image wx:elif="{{plan.operator === '中国电信'}}" class="row-icon row-inline-icon" src="/static/images/telecom.svg"></image>{{plan.operator}}
+      </view>
+      <view class="block-column">
+        <text>月租<text class="monthly-fee">{{plan.price.monthlyFee}}</text>元</text>
+      </view>
+    </view>
+    <view class="block-divider"></view>
+    <view class="block-row">
+      <view class="block-column text-big"><image class="row-icon" src="/static/images/phone.svg"></image>套餐内通话</view>
+      <view class="block-column" wx:if="{{plan.price.callInplan >= 99999}}">全国不限量</view>
+      <view class="block-column" wx:else><text class="block-value">{{plan.price.callInplan}}</text>分钟</view>
+    </view>
+    <view class="block-row">
+      <view class="block-column text-big icon-offset">套餐外通话</view>
+      <view class="block-column"><text class="block-value">{{plan.price.callOutPlanPrice}}</text>元每分钟</view>
+    </view>
+    <view class="block-divider"></view>
+    <view class="block-row">
+      <view class="block-column text-big"><image class="row-icon" src="/static/images/traffic.svg"></image>套餐内流量</view>
+      <view class="block-column">
+        <view wx:if="{{plan.price.trafficInPlan.national >= 99999}}">
+          <view >全国不限量</view>
+        </view>
+        <view wx:elif="{{plan.price.trafficInPlan.inProvince >= 99999}}">
+          <view>省内不限量</view>
+        </view>
+        <view wx:else>
+          <text>省内<text class="block-value">{{plan.price.trafficInPlan.inProvince ?  plan.price.trafficInPlan.inProvince : '无'}}</text>{{plan.price.trafficInPlan.inProvince ? 'GB' : ''}} </text><text>全国<text class="block-value">{{plan.price.trafficInPlan.national ?  plan.price.trafficInPlan.national : '无'}}</text>{{plan.price.trafficInPlan.national ? 'GB' : ''}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="block-row multi-row">
+      <view class="block-column text-big icon-offset">套餐外流量</view>
+      <view class="block-column">
+        <view class="align-right">
+          <view wx:if="{{!plan.price.trafficOutPlanPrice.inProvince}}">省内<text class="block-value">无</text></view>
+          <view wx:elif="{{!plan.price.trafficOutPlanPrice.inProvince.daily && plan.price.trafficOutPlanPrice.inProvince.quantity >= 99999}}">省内不限量</view>
+          <view wx:elif="{{plan.price.trafficOutPlanPrice.inProvince.daily && plan.price.trafficOutPlanPrice.inProvince.quantity >= 99999}}">省内日租<text class="block-value">{{plan.price.trafficOutPlanPrice.inProvince.price}}</text>元每天不限量</view>
+          <view wx:else>省内{{plan.price.trafficOutPlanPrice.inProvince.daily ? '日租' : '月租'}}<text class="block-value">{{plan.price.trafficOutPlanPrice.inProvince.price}}</text>元每 {{plan.price.trafficOutPlanPrice.inProvince.quantity + ' GB'}}</view>
+          <view wx:if="{{!plan.price.trafficOutPlanPrice.national}}">全国<text class="block-value">无</text></view>
+          <view wx:elif="{{plan.price.trafficOutPlanPrice.national.quantity >= 99999}}">全国不限量</view>
+          <view wx:else>全国{{plan.price.trafficOutPlanPrice.national.daily ? '日租' : '月租'}}<text class="block-value">{{plan.price.trafficOutPlanPrice.national.price}}</text>元每 {{plan.price.trafficOutPlanPrice.national.quantity +' GB'}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="block-divider"></view>
+    <view class="block-row">
+      <view class="block-column text-big">
+        <image class="row-icon" src="/static/images/privilege.svg"></image>特权
+      </view>
+    </view>
+    <view class="block-row privilege">
+      <view class="block-column icon-offset">
+        {{plan.privilege}}
+      </view>
+    </view>
+  </view>
+  <view class="title">
+    费用预估
+    <view class="subtitle">请填写您的预计使用量，我可以为您计算预计费用</view>
+  </view>
+  <view class="block">
+    <view class="block-row">
+      <view class="block-column text-big"><image class="row-icon" src="/static/images/phone.svg"></image>通话时间</view>
+      <view class="block-column">
+        <view class="input-wrapper">
+          <view class="input-value">
+            <input type="digit" value="{{call}}" bindblur="callInputChange"/>
+          </view>
+          <view class="input-unit">分钟</view>
+        </view>
+      </view>
+    </view>
+    <view class="block-row">
+      <view class="block-column text-big"><image class="row-icon" src="/static/images/traffic.svg"></image>省内流量</view>
+      <view class="block-column">
+        <view class="input-wrapper">
+          <view class="input-value">
+            <input type="digit" value="{{inProvinceTraffic}}" bindblur="inProvinceTrafficInputChange"/>
+          </view>
+          <view class="input-unit">GB</view>
+        </view>
+      </view>
+    </view>
+    <view class="block-row">
+      <view class="block-column text-big"><image class="row-icon" src="/static/images/briefcase.svg"></image>省外流量</view>
+      <view class="block-column">
+        <view class="input-wrapper">
+          <view class="input-value">
+            <input type="digit" value="{{nationalTraffic}}" bindblur="nationalTrafficInputChange"/>
+          </view>
+          <view class="input-unit">GB</view>
+        </view>
+      </view>
+    </view>
+    <view class="block-divider"></view>
+    <view class="block-row text-big">
+      <view class="block-column">预计费用</view>
+      <view class="block-column">
+        <text class="fee-value">
+        <text class="fee-value-big">{{m.splitFee(plan.price.costEstimate.totalFee).feeBig}}</text>.{{m.splitFee(plan.price.costEstimate.totalFee).feeSmall}}</text>元
+      </view>
+    </view>
+    <view class="sub-fee">
+      <view class="block-row">
+        <view class="block-column">月租</view>
+        <view class="block-column">
+          <text>
+          <text class="fee-value-big">{{m.splitFee(plan.price.costEstimate.monthlyFee).feeBig}}</text>.{{m.splitFee(plan.price.costEstimate.monthlyFee).feeSmall}}</text>元
+        </view>
+      </view>
+      <view class="block-row">
+        <view class="block-column">通话</view>
+        <view class="block-column">
+          <text>
+          <text class="fee-value-big">{{m.splitFee(plan.price.costEstimate.callFee).feeBig}}</text>.{{m.splitFee(plan.price.costEstimate.callFee).feeSmall}}</text>元
+        </view>
+      </view>
+      <view class="block-row">
+        <view class="block-column">流量</view>
+        <view class="block-column">
+          <text>
+          <text class="fee-value-big">{{m.splitFee(plan.price.costEstimate.trafficFee).feeBig}}</text>.{{m.splitFee(plan.price.costEstimate.trafficFee).feeSmall}}</text>元
+        </view>
+      </view>
+    </view>
+
+  </view>
+  <view class="btn-group">
+    <button class="btn" type="primary" bindtap="goApplyNew">办卡指南</button>
+    <button class="btn" type="default" bindtap="goChangePlan">老用户指南</button>
+  </view>
+  <view class="block block-no-style">
+    <view class="sponsor-block">
+      <sponsor show="{{showAd}}" ad="{{ad}}"></sponsor>
+    </view>
+  </view>
+
+  <view class="footer">
+    <view class="footer-image" bindtap="goPrototype">
+      <image mode="aspectFit" src="https://prototype.im/badge@2x.png"></image>
+    </view>
+    <view class="footer-text" bindtap="goFeedback">反馈问题</view>
+  </view>
+</view>

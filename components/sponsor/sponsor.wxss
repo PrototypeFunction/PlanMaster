@@ -1,0 +1,57 @@
+.sponsor {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin: 15px 0;
+  font-size: 18px;
+  border-radius: 8px;
+  background: #FFF;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+.sponsor-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
+.sponsor-row + .sponsor-row {
+  margin-top: 10px;
+}
+.sponsor-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+  align-self: stretch;
+  flex-grow: 1;
+}
+.sponsor-img-box {
+  flex-grow: 0;
+  margin-right: 10px;
+}
+.sponsor-img {
+  height: 60px;
+  width: 50px;
+}
+.sponsor-title {
+  font-size: 16px;
+}
+.sponsor-subtitle {
+  font-size: 14px;
+  color: #666666;
+}
+.sponsor-picture {
+  width: 100%;
+  border-radius: 6px;
+}
+.sponsor-prompt {
+  min-width: 2em;
+  padding: 1px 4px;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+}

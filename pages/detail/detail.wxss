@@ -1,0 +1,119 @@
+.block {
+  margin: 18px;
+  background: #FFF;
+  font-size: 14px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.block-no-style {
+  background: none;
+  box-shadow: none;
+  border-radius: none;
+}
+.block-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px;
+  padding: 0 10px;
+}
+.block-row:first-child {
+  padding-top: 20px;
+}
+.block-row:last-child {
+  padding-bottom: 20px;
+}
+.multi-row {
+  align-items: flex-start;
+}
+.text-big {
+  font-size: 16px;
+}
+.block-column {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 28px;
+  vertical-align: middle;
+}
+.block-divider {
+  height: 2px;
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+}
+.row-icon {
+  margin-right: 8px;
+  height: 1em;
+  width: 1.2em;
+}
+.row-inline-icon {
+  margin: 0 8px;
+}
+.icon-offset {
+  margin-left: calc(1.2em + 8px);
+}
+.input-unit {
+  margin-left: 1em;
+  color: #666;
+}
+.title {
+  margin: 25px 18px;
+  font-size: 20px;
+}
+.subtitle {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+.block-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 20px;
+}
+.block-subtitle {
+  margin-left: 25px;
+  text-align: right;
+  font-size: 12px;
+  color: #FF983C;
+}
+.block-value {
+  margin: 0 6px;
+  font-size: 20px;
+}
+.align-right {
+  text-align: right;
+}
+.sub-fee {
+  border-top: 1px solid #EEEEEE;
+  background: #FAFAFA;
+  border-radius: 8px;
+}
+.sub-fee .block-row {
+  padding-top: 0;
+}
+.monthly-fee {
+  margin: 0 6px;
+  font-size: 24px;
+  color: #29AE60;
+  vertical-align: baseline;
+}
+.input-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 8em;
+}
+.privilege {
+  font-size: 14px;
+  color: #27AE60;
+}
+.fee-value {
+  margin: 0 5px;
+  color: #29AE60;
+}
+.fee-value-big {
+  font-size: 20px;
+}

@@ -1,0 +1,1 @@
+<web-view src="{{plan.guideUrl}}"></web-view>

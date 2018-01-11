@@ -1,0 +1,15 @@
+<view class="sponsor{{ad.type === 'picture' ? ' no-padding' : ''}}" bindtap="goAd" data-open-type="{{ad.openType}}">
+  <block wx:if="{{ad.type === 'text'}}" >
+    <view wx:if="{{ad.img}}" class="sponsor-column sponsor-img-box">
+      <image class="sponsor-img" src="{{ad.img}}"></image>
+    </view>
+    <view class="sponsor-column">
+      <view class="sponsor-row sponsor-title">{{ad.title}}</view>
+      <view class="sponsor-row">
+        <view class="sponsor-subtitle">{{ad.subtitle}}</view>
+        <view class="sponsor-prompt">广告</view>
+      </view>
+    </view>
+  </block>
+  <image wx:if="{{ad.type === 'picture'}}" class="sponsor-picture" src="{{ad.img}}" style="height: {{sopnsorImageHeight}}px;" bindload="setSopnsorImageHeight"></image>
+</view>

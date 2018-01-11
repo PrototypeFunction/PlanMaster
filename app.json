@@ -1,0 +1,18 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/newCard/newCard",
+    "pages/changePlan/changePlan",
+    "pages/feedback/feedback",
+    "pages/webview/webview",
+    "pages/ad/ad"
+  ],
+  "window":{
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "套餐助手",
+    "navigationBarTextStyle":"black"
+  }
+}
