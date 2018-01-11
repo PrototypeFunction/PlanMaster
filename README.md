@@ -1,4 +1,8 @@
-# 套餐助手：手机套餐对比选购小程序
+<a href="https://planmaster.prototype.im"><img src="https://prototype.im/projects/planmaster@2x.png" height="160" align="right"></a>
+
+# 套餐助手
+
+### 手机套餐对比选购小程序
 
 套餐助手是一个帮你在众多互联网套餐中选择最适合的套餐的小程序。
 
@@ -19,8 +23,7 @@
 
 ## 截图
 
-<img src="https://wx1.sinaimg.cn/large/701cac0cgy1fna85b3gsrj20v94q8dw3.jpg" width="420"/>
-<img src="https://wx4.sinaimg.cn/large/701cac0cgy1fna85bn0uej20v92pg11d.jpg" width="420"/>
+<img src="https://cdn.sspai.com/2017/11/19/a7c2965a0dfc12c27bf70859c3b9bb13.gif?imageView2/2/w/1120/q/90/interlace/1/ignore-error/1" width="420"/>
 
 ## 开发使用说明
 
@@ -31,17 +34,17 @@
 
 ```
 .
-├── app.js                        // 在onLaunch时做一些统计相关的工作
+├── app.js                        // 在 onLaunch 时做一些统计相关的工作
 ├── components
-│   └── sponsor                   // 广告组件，每次onShow时显示下一个广告
+│   └── sponsor                   // 广告组件，每次 onShow 时显示下一个广告
 ├── pages
-│   ├── ad                        // 广告的webview，广告的打开类型为webview时跳到该页面
+│   ├── ad                        // 广告的 webview，广告的打开类型为 webview 时跳到该页面
 │   ├── changePlan                // 修改套餐页
 │   ├── detail                    // 套餐详情页
-│   ├── feedback                  // 反馈页面，也是一个webview
+│   ├── feedback                  // 反馈页面
 │   ├── index                     // 首页，费用计算及套餐推荐，推荐套餐按费用升序排列
 │   ├── newCard                   // 办理新卡的页面
-│   └── webview                   // 一个通用的webview，其他网页都跳到这个页面
+│   └── webview                   // 一个通用的 webview，其他网页都跳到这个页面
 ├── static
 │   └── images
 └── utils
